@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS products (
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS customers (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
+    member_code TEXT UNIQUE,           
     name TEXT,
     email TEXT UNIQUE,
     password_hash TEXT,
