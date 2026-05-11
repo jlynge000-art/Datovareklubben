@@ -22,6 +22,8 @@ CREATE TABLE IF NOT EXISTS customers (
     name TEXT,
     email TEXT UNIQUE,
     password_hash TEXT,
+    email_verified INTEGER DEFAULT 0,
+    verification_token TEXT,           
     points INTEGER DEFAULT 0
 )
 """)
