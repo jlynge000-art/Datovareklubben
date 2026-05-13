@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Min profil</h2>
+<p><strong>Brugernavn:</strong> {{ user.username }}</p>
+<p><strong>E-mail:</strong> {{ user.email }}</p>
+
+<h3>Seneste lagerændringer</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Produkt ID</th>
+            <th>Ændring</th>
+            <th>Handling</th>
+            <th>Tidspunkt</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for log in logs %}
+        <tr>
+            <td>{{ log.product_id }}</td>
+            <td>{{ log.change }}</td>
+            <td>{{ log.action }}</td>
+            <td>{{ log.timestamp }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
