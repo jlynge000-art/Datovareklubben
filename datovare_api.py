@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, send_from_directory
+from flask import Flask, jsonify, send_from_directory, request
 import sqlite3
 
 app = Flask(__name__)
@@ -70,6 +70,42 @@ def get_product_by_barcode(barcode):
         return {"error": "Produkt ikke fundet"}, 404
 
     return jsonify(dict(product))
+
+@app.route("/scan", methods=["POST"])
+def scan_product():
+    data = request.get_json()
+
+    barcode = data.get("barcode")
+
+    if not barcode:
+        return {"error": "Ingen stregkode modtaget"}, 400
+
+    conn = get_db_connection()
+
+    product = conn.execute(
+        "SELECT * FROM products WHERE barcode = ?",
+        (barcode,)
+    ).fetchone()
+
+    conn.close()
+
+    if product is None:
+        return {"error": "Produkt ikke fundet"}, 404
+
+    product_dict = dict(product)
+
+    normal_price = float(product_dict["normal_price"])
+    discount_price = round(normal_price * 0.60, 2)
+
+    return jsonify({
+        "message": "Datovare oprettet",
+        "barcode": product_dict["barcode"],
+        "name": product_dict["name"],
+        "normal_price": normal_price,
+        "discount_price": discount_price,
+        "image_path": product_dict["image_path"],
+        "category": product_dict["category"]
+    })
 
 @app.route("/images/<filename>")
 def get_image(filename):
