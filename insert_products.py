@@ -8,7 +8,7 @@ products = [
     ("2700000000021", "Rugbrød", 24.95, "Databasebillederne/rugbroed.png", "Brød"),
     ("2700000000038", "Rejesalat", 29.95, "Databasebillederne/rejesalat.png", "Pålægssalater"),
     ("2700000000045", "Pastasalat", 34.95, "Databasebillederne/pastasalat.png", "Færdigretter"),
-    ("270000000052", "Russisk salat", 24.95, "Databasebillederne/russisk_salat.png", "Pålægssalater")
+    ("2700000000052", "Russisk salat", 24.95, "Databasebillederne/russisk_salat.png", "Pålægssalater")
 ]
 
 cursor.executemany("""
