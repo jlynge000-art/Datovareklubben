@@ -4,10 +4,10 @@ conn = sqlite3.connect("database.db")
 cursor = conn.cursor()
 
 products = [
-    ("2700000000001", "Spegepølse", 34.95, "Databasebillederne/spegepoelse.png", "Pålæg"),
-    ("2700000000002", "Rugbrød", 24.95, "Databasebillederne/rugbroed.png", "Brød"),
-    ("2700000000003", "Rejesalat", 29.95, "Databasebillederne/rejesalat.png", "Pålægssalater"),
-    ("2700000000004", "Pastasalat", 34.95, "Databasebillederne/pastasalat.png", "Færdigretter"),
+    ("27000000000014", "Spegepølse", 34.95, "Databasebillederne/spegepoelse.png", "Pålæg"),
+    ("27000000000021", "Rugbrød", 24.95, "Databasebillederne/rugbroed.png", "Brød"),
+    ("27000000000038", "Rejesalat", 29.95, "Databasebillederne/rejesalat.png", "Pålægssalater"),
+    ("27000000000045", "Pastasalat", 34.95, "Databasebillederne/pastasalat.png", "Færdigretter"),
     ("2700000000005", "Russisk salat", 24.95, "Databasebillederne/russisk_salat.png", "Pålægssalater")
 ]
 
