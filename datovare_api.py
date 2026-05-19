@@ -103,7 +103,6 @@ def scan_product():
         "name": product_dict["name"],
         "normal_price": normal_price,
         "discount_price": discount_price,
-        "image_path": product_dict["image_path"],
         "category": product_dict["category"]
     })
 
