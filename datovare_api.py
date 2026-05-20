@@ -87,15 +87,22 @@ def scan_product():
         (barcode,)
     ).fetchone()
 
-    conn.close()
-
     if product is None:
+        conn.close()
         return {"error": "Produkt ikke fundet"}, 404
 
     product_dict = dict(product)
 
     normal_price = float(product_dict["normal_price"])
     discount_price = round(normal_price * 0.60, 2)
+
+    conn.execute("""
+        INSERT INTO discount_products (product_id, discount_price, created_at, active)
+        VALUES (?, ?, datetime('now'), 1)
+    """, (product_dict["id"], discount_price))
+
+    conn.commit()
+    conn.close()
 
     return jsonify({
         "message": "Datovare oprettet",
