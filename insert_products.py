@@ -12,7 +12,7 @@ products = [
 ]
 
 cursor.executemany("""
-INSERT INTO products (
+INSERT OR IGNORE INTO products (
     barcode,
     name,
     normal_price,
