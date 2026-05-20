@@ -39,6 +39,17 @@ CREATE TABLE IF NOT EXISTS purchases (
 )
 """)
 
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS discount_products (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    product_id INTEGER,
+    discount_price REAL,
+    created_at TEXT,
+    active INTEGER DEFAULT 1,
+    FOREIGN KEY (product_id) REFERENCES products(id)
+)
+""")
+
 conn.commit()
 
 print("Database og tabeller oprettet")
