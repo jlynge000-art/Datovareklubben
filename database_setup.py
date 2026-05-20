@@ -9,7 +9,6 @@ CREATE TABLE IF NOT EXISTS products (
     barcode TEXT UNIQUE,
     name TEXT,
     normal_price REAL,
-    discount_price REAL,
     image_path TEXT,
     category TEXT
 )
