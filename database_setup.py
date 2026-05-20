@@ -32,8 +32,7 @@ CREATE TABLE IF NOT EXISTS purchases (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     customer_id INTEGER,
     product_id INTEGER,
-    quantity INTEGER,
-    total_price REAL,
+    discount_price REAL,
     purchase_date TEXT,
     FOREIGN KEY (customer_id) REFERENCES customers(id),
     FOREIGN KEY (product_id) REFERENCES products(id)
