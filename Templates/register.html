@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="form-container">
+    <h2>Opret konto</h2>
+    <form method="POST" action="/register">
+        <label>Navn</label>
+        <input type="text" name="username" id="username" required>
+
+        <label>E-mail</label>
+        <input type="email" name="email" required>
+
+        <label>Adgangskode</label>
+        <input type="password" name="password" required>
+
+        <button type="submit">Opret konto</button>
+    </form>
+    <p>Har du allerede en konto? <a href="{{ url_for('login') }}">Log ind her</a></p>
+</div>
+{% endblock %}

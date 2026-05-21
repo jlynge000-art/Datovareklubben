@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <title>Lagerstyring</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <nav>
+        <a href="{{ url_for('get_products') }}">Produkter</a>
+        {% if session.user_id %}
+            <a href="{{ url_for('profile') }}">Min profil</a>
+            <a href="{{ url_for('logout') }}">Log ud</a>
+        {% else %}
+            <a href="{{ url_for('login') }}">Log ind</a>
+            <a href="{{ url_for('register') }}">Opret konto</a>
+        {% endif %}
+    </nav>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="flash">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+
+</body>
+</html>

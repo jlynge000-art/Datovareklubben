@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Produkter</h2>
+
+<div class="product-grid">
+    {% for product in products %}
+    <div class="product-card">
+
+        <img src="/images/{{ product.image_path.split('/')|last }}"
+             alt="{{ product.name }}">
+
+        <h3>{{ product.name }}</h3>
+        <p class="category">{{ product.category }}</p>
+        <p class="price">Normalpris: {{ product['normal_price'] }} kr</p>
+        <p class="price discount">Tilbudspris: {{ product['discount_price'] }} kr</p>
+
+        <div class="stock-counter">
+            <span class="stock-label">Lager</span>
+            <span class="stock-number {% if product.stock <= 5 %}low-stock{% endif %}">
+                {{ product.stock }}
+            </span>
+        </div>
+
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

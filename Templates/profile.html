@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Min profil</h2>
+<p><strong>Navn:</strong> {{ user['name'] }}</p>
+<p><strong>E-mail:</strong> {{ user['email'] }}</p>
+<p><strong>Medlemskode:</strong> {{ user['member_code'] }}</p>
+<p><strong>Point:</strong> {{ user['points'] }}</p>
+
+<h3>Købshistorik</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Produkt</th>
+            <th>Antal</th>
+            <th>Pris</th>
+            <th>Dato</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for purchase in purchases %}
+        <tr>
+            <td>{{ purchase['product_name'] }}</td>
+            <td>{{ purchase['quantity'] }}</td>
+            <td>{{ purchase['total_price'] }} kr</td>
+            <td>{{ purchase['purchase_date'] }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
