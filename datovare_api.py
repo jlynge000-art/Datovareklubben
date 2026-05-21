@@ -138,6 +138,7 @@ def get_discount_products():
             products.name,
             products.normal_price,
             discount_products.discount_price,
+            discount_products.quantity,            
             products.image_path,
             products.category,
             discount_products.created_at
