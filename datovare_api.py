@@ -96,10 +96,23 @@ def scan_product():
     normal_price = float(product_dict["normal_price"])
     discount_price = round(normal_price * 0.60, 2)
 
-    conn.execute("""
-        INSERT INTO discount_products (product_id, discount_price, created_at, active)
-        VALUES (?, ?, datetime('now'), 1)
-    """, (product_dict["id"], discount_price))
+    existing_discount = conn.execute("""
+        SELECT * FROM discount_products
+        WHERE product_id = ? AND active = 1
+    """, (product_dict["id"],)).fetchone()
+
+    if existing_discount:
+        conn.execute("""
+            UPDATE discount_products
+            SET quantity = quantity + 1
+            WHERE id = ?
+        """, (existing_discount["id"],))
+    else:
+        conn.execute("""
+            INSERT INTO discount_products 
+            (product_id, discount_price, quantity, created_at, active)
+            VALUES (?, ?, 1, datetime('now'), 1)
+        """, (product_dict["id"], discount_price))
 
     conn.commit()
     conn.close()
@@ -112,6 +125,44 @@ def scan_product():
         "discount_price": discount_price,
         "category": product_dict["category"]
     })
+
+@app.route("/discount-products")
+def get_discount_products():
+
+    conn = get_db_connection()
+
+    rows = conn.execute("""
+        SELECT
+            discount_products.id,
+            products.barcode,
+            products.name,
+            products.normal_price,
+            discount_products.discount_price,
+            products.image_path,
+            products.category,
+            discount_products.created_at
+        FROM discount_products
+        JOIN products
+        ON discount_products.product_id = products.id
+        WHERE discount_products.active = 1
+        ORDER BY discount_products.created_at DESC
+    """).fetchall()
+
+    conn.close()
+
+    discount_list = []
+
+    for row in rows:
+
+        item = dict(row)
+
+        image_filename = item["image_path"].split("/")[-1]
+
+        item["image_url"] = f"/images/{image_filename}"
+
+        discount_list.append(item)
+
+    return jsonify(discount_list)
 
 @app.route("/images/<filename>")
 def get_image(filename):
