@@ -1,31 +1,64 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>Min profil</h2>
-<p><strong>Navn:</strong> {{ user['name'] }}</p>
-<p><strong>E-mail:</strong> {{ user['email'] }}</p>
-<p><strong>Medlemskode:</strong> {{ user['member_code'] }}</p>
-<p><strong>Point:</strong> {{ user['points'] }}</p>
 
-<h3>Købshistorik</h3>
-<table>
-    <thead>
-        <tr>
-            <th>Produkt</th>
-            <th>Antal</th>
-            <th>Pris</th>
-            <th>Dato</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for purchase in purchases %}
-        <tr>
-            <td>{{ purchase['product_name'] }}</td>
-            <td>{{ purchase['quantity'] }}</td>
-            <td>{{ purchase['total_price'] }} kr</td>
-            <td>{{ purchase['purchase_date'] }}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+<div class="profile-grid">
+
+    <!-- Venstre: user info -->
+    <div class="profile-info">
+        <h2>Min profil</h2>
+        <p><strong>Navn:</strong> {{ user['name'] }}</p>
+        <p><strong>E-mail:</strong> {{ user['email'] }}</p>
+        <p><strong>Medlemskode:</strong> {{ user['member_code'] }}</p>
+        <p><strong>Point:</strong> {{ user['points'] }}</p>
+        <p><strong>Medlem siden:</strong> {{ user['created_at'] }}</p>
+    </div>
+
+    <!-- Højre: QR code -->
+    <div class="qr-container">
+        <h3>Mit medlemskort</h3>
+        <p>Vis denne kode ved kassen</p>
+        {% if user['qr_code_path'] %}
+            <img src="/{{ user['qr_code_path'] }}" alt="Medlemskort QR kode">
+        {% else %}
+            <p>QR kode ikke tilgængelig</p>
+        {% endif %}
+        <p class="member-code-label">{{ user['member_code'] }}</p>
+    </div>
+
+</div>
+
+<!-- Purchase history -->
+<div class="purchase-history">
+    <h3>Købshistorik</h3>
+    <p class="total-spent">Samlet brugt: <strong>{{ total_spent }} kr</strong></p>
+
+    {% if purchases %}
+    <table>
+        <thead>
+            <tr>
+                <th>Produkt</th>
+                <th>Antal</th>
+                <th>Normalpris</th>
+                <th>Betalt</th>
+                <th>Dato</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for purchase in purchases %}
+            <tr>
+                <td>{{ purchase['product_name'] }}</td>
+                <td>{{ purchase['quantity'] }}</td>
+                <td class="original-price">{{ purchase['normal_price'] }} kr</td>
+                <td class="discount">{{ purchase['total_price'] }} kr</td>
+                <td>{{ purchase['purchase_date'] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p>Ingen køb endnu.</p>
+    {% endif %}
+</div>
+
 {% endblock %}

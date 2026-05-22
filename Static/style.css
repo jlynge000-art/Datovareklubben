@@ -137,3 +137,45 @@ th {
     color: #e74c3c;
     font-weight: bold;
 }
+.profile-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.profile-info p {
+    margin-bottom: 12px;
+    font-size: 16px;
+}
+
+.qr-container {
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.qr-container img {
+    width: 200px;
+    height: 200px;
+    margin: 12px auto;
+    display: block;
+}
+
+.member-code-label {
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 3px;
+    color: #333;
+    margin-top: 8px;
+}
+
+.purchase-history {
+    margin-top: 20px;
+}
+
+.total-spent {
+    font-size: 18px;
+    margin-bottom: 16px;
+}
