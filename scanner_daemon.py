@@ -3,7 +3,7 @@ import requests
 from evdev import InputDevice, categorize, ecodes, list_devices
 from printer import print_product_label   # lokal - printer er på raspen
 
-SERVER = "http://192.168.0.14:5000"   # <-- Udskift med relevant ip-adresse
+SERVER = "http://10.31.128.28:5000"   # <-- Udskift med relevant ip-adresse
 
 KEYMAP = {f"KEY_{d}": d for d in "0123456789"}
 KEYMAP.update({f"KEY_{c}": c.lower() for c in "ABCDEFGHIJKLMNOPQRSTUVWXYZ"})
@@ -19,13 +19,13 @@ def find_scanner(name_hint="barcode"):
 
 def handle(barcode):
 
-    barcode = barcode.strip()
+    barcode = barcode.strip() #indsat så det virker.
 
-    print("Sender stregkode til API:", repr(barcode))#indsat
+    print("Sender stregkode til API:", repr(barcode))#indsat så det virker.
     
     try:
         r = requests.post(f"{SERVER}/scan",
-                          json={"barcode": barcode}, timeout=10)
+                          json={"barcode": barcode, "action": "scan_in"}, timeout=10)
     except requests.RequestException as e:
         print(f"[{barcode}] kunne ikke nå serveren: {e}")
         return
